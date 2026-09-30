@@ -19,7 +19,7 @@ execMessage(showMessageUpperCase, "Nome", "testo")
 //le funzioni sono tipi, quindi valori
 let funcCopy = showMessage
 
-//CTRL +D per dupliare
+//CTRL + D per dupliare
 funcCopy("asdkb", "new val")
 showMessage("Luca", "ciao");
 showMessage("Anna", "com'è?");

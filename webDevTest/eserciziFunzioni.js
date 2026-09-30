@@ -15,10 +15,10 @@ console.log(applica(raddoppia, 21));
 console.log(applica(raddoppia, applica(increment, 4)));
 //applica(raddoppia, applica(increment,4))
 // return raddoppia(increment(4))
-//return raddoppia(5)
-//return 10
+// return raddoppia(5)
+// return 10
 console.log(applica(raddoppia, raddoppia(increment(5))));
-//applica(raddoppia, raddoppia(increment(5))
+// applica(raddoppia, raddoppia(increment(5))
 // return raddoppia(raddoppia(increment,4))
 // return raddoppia(raddoppia(increment,4))
 
@@ -28,7 +28,7 @@ function applica2volte(f, x) {
 }
 
 applica2volte(increment, 5)
-//applica2volte(increment, 5)
+// applica2volte(increment, 5)
 // return increment(increment(5))
 // return increment(6)
 // return 7
