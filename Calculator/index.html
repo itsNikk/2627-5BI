@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="calculator_v2.js" defer></script>
+    <title>Calculator</title>
+</head>
+
+<body>
+    <h1>Calcolatrice</h1>
+    <label for="n1">
+        Primo numero:
+        <input type="number" id="n1" placeholder="Inserisci primo numero">
+    </label>
+    <br><br>
+    <label for="operazione">Operazione:
+
+        <select id="operazione">
+            <option value="+">+</option>
+            <option value="-">-</option>
+            <option value="**">potenza</option>
+            <option value="/">division</option>
+        </select>
+    </label>
+    <br><br>
+    <label for="n2">
+        Secondo numero:
+        <input type="number" id="n2">
+    </label>
+    <br>
+    <button id="calcola">Calcola</button>
+    <h3>Risultato</h3>
+    <!-- p= paragraph. è solo un tag che contiene testo normale-->
+    <p id="risultato"></p>
+</body>
+
+</html>
