@@ -32,3 +32,4 @@ applica2volte(increment, 5)
 // return increment(increment(5))
 // return increment(6)
 // return 7
+
