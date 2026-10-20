@@ -26,6 +26,10 @@ const operations = {
     'max': (...op) => Math.max(...op)
 }
 
+function update() {
+    executeComputation(n1Elem.value, opElem.value, n2Elem.value)
+}
+
 const regole = [
     (t1, t2) => {
         if (t1 === "" || t2 === "") throw new Error("Inserire entrambi i numeri")
@@ -51,20 +55,23 @@ function valida(regole, t1, t2) {
     for (const regola of regole) regola(t1, t2)
 }
 
+function executeComputation(a, op, b) {
+    try {
+        valida(regole, a, b)
+        const n1 = Number(a)
+        const n2 = Number(b)
+
+        const res = calcola(chooseOp(op), n1, n2)
+        errorElem.textContent = ""
+        resElem.textContent = formatRes(n1, op, n2, res)
+    } catch (error) {
+        errorElem.textContent = error.message
+    }
+}
+
 function forOperation(op) {
     return function () {
-        try {
-            valida(regole, n1Elem.value, n2Elem.value)
-            const a = Number(n1Elem.value)
-            const b = Number(n2Elem.value)
-
-            const chosenOp = chooseOp(op)
-            const res = calcola(chosenOp, a, b)
-            errorElem.textContent = ""
-            resElem.textContent = formatRes(a, op, b, res)
-        } catch (error) {
-            errorElem.textContent = error.message
-        }
+        executeComputation(n1Elem.value, opElem.value, n2Elem.value)
     }
 }
 
@@ -77,8 +84,8 @@ function formatRes(a, symbol, b, res) {
 Abbiamo cambiato il modo in cui definiamo e scegliamo cosa fare (le op).
 Ma la funzione che esegue il calcolo/op NON è cambiata
 */
-calcolaBtn.disabled = true
-calcolaBtn.addEventListener("click", forOperation(opElem.value))
+//calcolaBtn.addEventListener("click", forOperation(opElem.value))
+calcolaBtn.addEventListener("click", update)
 /*calcolaBtn.addEventListener("click", function () {
     //se lavoro con input, form, select -> value
     try {
@@ -95,8 +102,11 @@ calcolaBtn.addEventListener("click", forOperation(opElem.value))
     }
 })
 */
-
 sumBtn.addEventListener("click", forOperation(sumBtn.textContent))
 subBtn.addEventListener("click", forOperation(subBtn.textContent))
 multBtn.addEventListener("click", forOperation(multBtn.textContent))
 powBtn.addEventListener("click", forOperation(powBtn.textContent))
+
+n1Elem.addEventListener("input", executeComputation)
+n2Elem.addEventListener("input", executeComputation)
+opElem.addEventListener("change", executeComputation)
