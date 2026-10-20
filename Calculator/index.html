@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="calculator_v2.js" defer></script>
+    <script src="calculator_v3.js" defer></script>
     <title>Calculator</title>
 </head>
 
@@ -24,18 +24,24 @@
             <option value="/">division</option>
             <option value="min">min</option>
             <option value="max">max</option>
+            <option value="unk">unk</option>
         </select>
     </label>
     <br><br>
     <label for="n2">
         Secondo numero:
-        <input type="number" id="n2">
+        <input type="number" id="n2" placeholder="Inserisci secondo numero">
     </label>
     <br>
     <button id="calcola">Calcola</button>
+    <button id="sumBtn">+</button>
+    <button id="subBtn">-</button>
+    <button id="multBtn">*</button>
+    <button id="powBtn">**</button>
     <h3>Risultato</h3>
     <!-- p = paragraph. è solo un tag che contiene testo normale-->
     <p id="risultato"></p>
+    <p id="error"></p>
 </body>
 
 </html>

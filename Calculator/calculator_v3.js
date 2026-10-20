@@ -3,7 +3,14 @@ const n1Elem = document.getElementById("n1")
 const n2Elem = document.getElementById("n2")
 const opElem = document.getElementById("operazione")
 const resElem = document.getElementById("risultato")
+const errorElem = document.getElementById("error")
 
+const sumBtn = document.getElementById("sumBtn")
+const subBtn = document.getElementById("subBtn")
+const multBtn = document.getElementById("multBtn")
+const powBtn = document.getElementById("powBtn")
+
+const LIMITE = 1000000;
 // Oggetto JS
 // funzioni anonime o arrow function (=>)
 const operations = {
@@ -19,6 +26,17 @@ const operations = {
     'max': (...op) => Math.max(...op)
 }
 
+const regole = [
+    (t1, t2) => {
+        if (t1 === "" || t2 === "") throw new Error("Inserire entrambi i numeri")
+    },
+    (t1, t2) => {
+        const a = Number(t1)
+        const b = Number(t2)
+        if (a > LIMITE || a < -LIMITE || b > LIMITE || b < -LIMITE) throw new Error("I numeri sono troppo grandi")
+    }
+]
+
 function calcola(f, a, b) {
     return f(a, b)
 }
@@ -29,22 +47,56 @@ function chooseOp(sym) {
     return v
 }
 
+function valida(regole, t1, t2) {
+    for (const regola of regole) regola(t1, t2)
+}
+
+function forOperation(op) {
+    return function () {
+        try {
+            valida(regole, n1Elem.value, n2Elem.value)
+            const a = Number(n1Elem.value)
+            const b = Number(n2Elem.value)
+
+            const chosenOp = chooseOp(op)
+            const res = calcola(chosenOp, a, b)
+            errorElem.textContent = ""
+            resElem.textContent = formatRes(a, op, b, res)
+        } catch (error) {
+            errorElem.textContent = error.message
+        }
+    }
+}
+
+function formatRes(a, symbol, b, res) {
+    return a + " " + symbol + " " + b + " = " + res
+}
+
 //console.log(calcolaBtn); 
 /*
 Abbiamo cambiato il modo in cui definiamo e scegliamo cosa fare (le op).
 Ma la funzione che esegue il calcolo/op NON è cambiata
 */
-calcolaBtn.addEventListener("click", function () {
+calcolaBtn.disabled = true
+calcolaBtn.addEventListener("click", forOperation(opElem.value))
+/*calcolaBtn.addEventListener("click", function () {
     //se lavoro con input, form, select -> value
-    const a = Number(n1Elem.value)
-    const b = Number(n2Elem.value)
-
-    const chosenOp = operations[opElem.value]
-
     try {
+        valida(regole, n1Elem.value, n2Elem.value)
+        const a = Number(n1Elem.value)
+        const b = Number(n2Elem.value)
+
+        const chosenOp = chooseOp(opElem.value)
         const res = calcola(chosenOp, a, b)
+        errorElem.textContent = ""
         resElem.textContent = res
     } catch (error) {
-        resElem.textContent = error.message
+        errorElem.textContent = error.message
     }
 })
+*/
+
+sumBtn.addEventListener("click", forOperation(sumBtn.textContent))
+subBtn.addEventListener("click", forOperation(subBtn.textContent))
+multBtn.addEventListener("click", forOperation(multBtn.textContent))
+powBtn.addEventListener("click", forOperation(powBtn.textContent))
