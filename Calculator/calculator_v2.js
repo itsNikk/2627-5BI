@@ -13,7 +13,10 @@ const operations = {
     '/': (a, b) => {
         if (b === 0) throw new Error("Div by zero")
         return a / b
-    }
+    },
+    '**': (a, b) => Math.pow(a, b),
+    'min': (a, b) => Math.min(a, b),
+    'max': (a, b) => Math.max(a, b)
 }
 
 function calcola(f, a, b) {
