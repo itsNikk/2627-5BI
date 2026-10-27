@@ -67,6 +67,7 @@ function clearAllFields() {
     n2Elem.value = ""
     resElem.textContent = ""
     errorElem.textContent = ""
+    aiutoElem.textContent = ""
 }
 
 function gestoreTasti(keyMap) {
@@ -91,6 +92,7 @@ for (const elem of [n1Elem, n2Elem, opElem]) {
 }
 
 //Solo una funzione di appoggio (helper) richiesta dall'esercizio
+let lastResult = null
 function executeOperation(a, simbolo, b) {
     try {
         valida(regole, a, b)
@@ -101,7 +103,9 @@ function executeOperation(a, simbolo, b) {
         const res = calcola(chosenOp, n1, n2)
         errorElem.textContent = ""
         resElem.textContent = format(n1, simbolo, n2, res)
+        lastResult = res
     } catch (error) {
+        resElem.textContent = ""
         errorElem.textContent = error.message
     }
 }
@@ -157,3 +161,10 @@ powBtn.addEventListener("contextmenu", descriviOperazione)
 
 //Es 7
 document.addEventListener("keydown", gestoreTasti(keyMap))
+
+//ES11
+resElem.addEventListener("dblclick", function () {
+    if (lastResult === null) return
+    n1Elem.value = lastResult
+    n2Elem.value = ""
+})
