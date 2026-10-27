@@ -1,16 +1,44 @@
 const calcolaBtn = document.getElementById("calcola")
+const subBtn = document.getElementById("subBtn")
+const sumBtn = document.getElementById("sumBtn")
+const divBtn = document.getElementById("divBtn")
+const powBtn = document.getElementById("powBtn")
+
 const n1Elem = document.getElementById("n1")
 const n2Elem = document.getElementById("n2")
 const opElem = document.getElementById("operazione")
 const resElem = document.getElementById("risultato")
 const errorElem = document.getElementById("error")
 
-const sumBtn = document.getElementById("sumBtn")
-const subBtn = document.getElementById("subBtn")
-const multBtn = document.getElementById("multBtn")
-const powBtn = document.getElementById("powBtn")
+function executeOperation(a, simbolo, b) {
+    try {
+        valida(regole, a, b)
+        const n1 = Number(n1Elem.value)
+        const n2 = Number(n2Elem.value)
 
-const LIMITE = 1000000;
+        const chosenOp = scegliOperazione(simbolo)
+        const res = calcola(chosenOp, n1, n2)
+        errorElem.textContent = ""
+        resElem.textContent = format(n1, simbolo, n2, res)
+    } catch (error) {
+        errorElem.textContent = error.message
+    }
+}
+
+function forOperation(sym) {
+    //???
+    return function () {
+        executeOperation(n1Elem.value, sym, n2Elem.value)
+    }
+}
+
+sumBtn.addEventListener("click", forOperation(sumBtn.textContent))
+subBtn.addEventListener("click", forOperation(subBtn.textContent))
+divBtn.addEventListener("click", forOperation(divBtn.textContent))
+powBtn.addEventListener("click", forOperation(powBtn.textContent))
+
+
+
 // Oggetto JS
 // funzioni anonime o arrow function (=>)
 const operations = {
@@ -22,61 +50,37 @@ const operations = {
         return a / b
     },
     '**': (a, b) => Math.pow(a, b),
-    'min': (a, b) => a < b ? a : b,
-    'max': (...op) => Math.max(...op)
+    'min': (a, b) => Math.min(a, b),
+    'max': (a, b) => Math.max(a, b)
 }
 
-function update() {
-    executeComputation(n1Elem.value, opElem.value, n2Elem.value)
-}
-
+const LIMIT = 1000000
 const regole = [
-    (t1, t2) => {
-        if (t1 === "" || t2 === "") throw new Error("Inserire entrambi i numeri")
+    (a, b) => {
+        if (a === "" || b === "") throw new Error("Inserire entrambi i numeri")
     },
     (t1, t2) => {
-        const a = Number(t1)
-        const b = Number(t2)
-        if (a > LIMITE || a < -LIMITE || b > LIMITE || b < -LIMITE) throw new Error("I numeri sono troppo grandi")
+        if (t1 > LIMIT || t1 < -LIMIT || t2 > LIMIT || t2 < -LIMIT)
+            throw new Error("Numeri troppo grandi")
     }
 ]
 
-function calcola(f, a, b) {
-    return f(a, b)
-}
-
-function chooseOp(sym) {
-    const v = operations[sym];
-    if (v === undefined) throw new Error("Operazione sconosciuta: " + sym)
-    return v
+function format(a, simbolo, b, res) {
+    return a + " " + simbolo + " " + b + " = " + res
 }
 
 function valida(regole, t1, t2) {
     for (const regola of regole) regola(t1, t2)
 }
 
-function executeComputation(a, op, b) {
-    try {
-        valida(regole, a, b)
-        const n1 = Number(a)
-        const n2 = Number(b)
-
-        const res = calcola(chooseOp(op), n1, n2)
-        errorElem.textContent = ""
-        resElem.textContent = formatRes(n1, op, n2, res)
-    } catch (error) {
-        errorElem.textContent = error.message
-    }
+function scegliOperazione(sym) {
+    const v = operations[sym];
+    if (v === undefined) throw new Error("Operazione non supportata: " + sym)
+    return v;
 }
 
-function forOperation(op) {
-    return function () {
-        executeComputation(n1Elem.value, opElem.value, n2Elem.value)
-    }
-}
-
-function formatRes(a, symbol, b, res) {
-    return a + " " + symbol + " " + b + " = " + res
+function calcola(f, a, b) {
+    return f(a, b)
 }
 
 //console.log(calcolaBtn); 
@@ -84,29 +88,8 @@ function formatRes(a, symbol, b, res) {
 Abbiamo cambiato il modo in cui definiamo e scegliamo cosa fare (le op).
 Ma la funzione che esegue il calcolo/op NON è cambiata
 */
-//calcolaBtn.addEventListener("click", forOperation(opElem.value))
-calcolaBtn.addEventListener("click", update)
-/*calcolaBtn.addEventListener("click", function () {
+calcolaBtn.addEventListener("click", function () {
     //se lavoro con input, form, select -> value
-    try {
-        valida(regole, n1Elem.value, n2Elem.value)
-        const a = Number(n1Elem.value)
-        const b = Number(n2Elem.value)
-
-        const chosenOp = chooseOp(opElem.value)
-        const res = calcola(chosenOp, a, b)
-        errorElem.textContent = ""
-        resElem.textContent = res
-    } catch (error) {
-        errorElem.textContent = error.message
-    }
+    //ALT+ARROW: sposta riga
+    executeOperation(n1Elem.value, opElem.value, n2Elem.value)
 })
-*/
-sumBtn.addEventListener("click", forOperation(sumBtn.textContent))
-subBtn.addEventListener("click", forOperation(subBtn.textContent))
-multBtn.addEventListener("click", forOperation(multBtn.textContent))
-powBtn.addEventListener("click", forOperation(powBtn.textContent))
-
-n1Elem.addEventListener("input", executeComputation)
-n2Elem.addEventListener("input", executeComputation)
-opElem.addEventListener("change", executeComputation)
