@@ -83,13 +83,16 @@ function calcola(f, a, b) {
     return f(a, b)
 }
 
+function update() {
+    return executeOperation(n1Elem.value, opElem.value, n2Elem.value)
+}
+
 //console.log(calcolaBtn); 
 /*
 Abbiamo cambiato il modo in cui definiamo e scegliamo cosa fare (le op).
 Ma la funzione che esegue il calcolo/op NON è cambiata
 */
-calcolaBtn.addEventListener("click", function () {
-    //se lavoro con input, form, select -> value
-    //ALT+ARROW: sposta riga
-    executeOperation(n1Elem.value, opElem.value, n2Elem.value)
-})
+calcolaBtn.addEventListener("click", update)
+opElem.addEventListener("change", update)
+n1Elem.addEventListener("input", update)
+n2Elem.addEventListener("input", update)
