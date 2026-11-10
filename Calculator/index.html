@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="calculator_v3.js" defer></script>
-    <title>Calculator</title>
+    <title>Calculator v3</title>
 </head>
 
 <body>
@@ -16,14 +16,17 @@
     </label>
     <br><br>
     <label for="operazione">Operazione:
-
         <select id="operazione">
             <option value="+">+</option>
             <option value="-">-</option>
+            <option value="*">*</option>
             <option value="**">potenza</option>
             <option value="/">division</option>
+            <option value="%">%</option>
             <option value="min">min</option>
             <option value="max">max</option>
+            <option value="media">media</option>
+            <!-- per provare l'esercizio 3 -->
             <option value="unk">unk</option>
         </select>
     </label>
@@ -34,14 +37,19 @@
     </label>
     <br>
     <button id="calcola">Calcola</button>
+    <br><br>
     <button id="sumBtn">+</button>
     <button id="subBtn">-</button>
+    <button id="mulBtn">*</button>
     <button id="divBtn">/</button>
-    <button id="powBtn">*</button>
+    <button id="powBtn">**</button>
+    <button id="modBtn">%</button>
+    <button id="minBtn">min</button>
+    <button id="maxBtn">max</button>
+    <button id="mediaBtn">media</button>
     <h3>Risultato</h3>
-    <!-- p = paragraph. è solo un tag che contiene testo normale-->
     <p id="risultato"></p>
-    <p id="error"></p>
+    <p id="messaggio"></p>
     <p id="aiuto"></p>
 </body>
 
