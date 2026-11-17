@@ -2,6 +2,7 @@ const convBtn = document.getElementById("converti");
 const valoreBox = document.getElementById("valore");
 const resElem = document.getElementById("risultato");
 const convMenu = document.getElementById("conversione");
+const errorBox = document.getElementById("errore");
 
 /*
 function x() {} -> dichiarazione
@@ -20,8 +21,13 @@ const conversioni = {
 convBtn.addEventListener("click", () => {
     //Valore da conv
     //sout(valoreBox.value)
-    conversioni[convMenu.value]
-    resElem.textContent = valoreBox.value
+    try {
+        const convToApply = conversioni[convMenu.value]
+        const res = convToApply(valoreBox.value)
+        resElem.textContent = res
+    } catch (error) {
+        errorBox.textContent = error.message
+    }
 
 })
 
