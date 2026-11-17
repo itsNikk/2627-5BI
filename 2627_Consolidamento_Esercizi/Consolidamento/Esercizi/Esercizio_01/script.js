@@ -18,17 +18,28 @@ const conversioni = {
     "ore-min": (h) => h * 60
 }
 
-convBtn.addEventListener("click", () => {
+function choose(map, key) {
+    if (map[key] === undefined) throw new Error("Not supported: " + key)
+    return map[key]
+}
+
+
+function performConversion() {
     //Valore da conv
     //sout(valoreBox.value)
     try {
-        const convToApply = conversioni[convMenu.value]
+        if (valoreBox.value === "") throw new Error("Inserire un valore")
+        const convToApply = choose(conversioni, convMenu.value)
         const res = convToApply(valoreBox.value)
+        errorBox.textContent = ""
         resElem.textContent = res
     } catch (error) {
+        resElem.textContent = ""
         errorBox.textContent = error.message
     }
+}
 
-})
+valoreBox.addEventListener("input", performConversion())
+convBtn.addEventListener("click", performConversion)
 
 
