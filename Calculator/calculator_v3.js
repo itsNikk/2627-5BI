@@ -60,7 +60,7 @@ const testiAiuto = {
 
 function gestoreTesto(mappa, chiaveDi, mostra) {
     return (e) => {
-        mostra(testiAiuto[chiaveDi(e)])
+        mostra(mappa[chiaveDi(e)])
     }
 }
 
@@ -152,3 +152,16 @@ n2Elem.addEventListener("input", update)
 opElem.addEventListener("change", update)
 
 document.addEventListener("keydown", keyManager())
+
+const opDescriptions = {
+    "+": "Somma tra due numeri",
+}
+
+const showDecription = gestoreTesto(opDescriptions,
+    (e) => e.target.textContent, (txt) => aiutoElem.textContent = txt)
+function describeOp(e) {
+    e.preventDefault()
+    showDecription(e)
+}   
+
+sumBtn.addEventListener("contextmenu", describeOp)
