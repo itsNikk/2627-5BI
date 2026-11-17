@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="script.js" defer></script>
+    <title>Convertitore</title>
+</head>
+
+<body>
+    <h1>Convertitore</h1>
+    <label for="valore">Valore: <input type="number" id="valore"></label>
+    <br><br>
+    <label for="conversione">Conversione:
+        <select id="conversione">
+            <option value="km-m">km in m</option>
+            <option value="m-km">m in km</option>
+            <option value="C-F">gradi C in gradi F</option>
+            <option value="F-C">gradi F in gradi C</option>
+            <option value="ore-min">ore in minuti</option>
+            <option value="unk">sconosciuta</option>
+        </select>
+    </label>
+    <br><br>
+    <button id="converti">Converti</button>
+    <p id="risultato"></p>
+    <p id="errore"></p>
+</body>
+
+</html>
