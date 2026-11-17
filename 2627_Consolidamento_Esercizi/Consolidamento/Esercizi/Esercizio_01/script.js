@@ -15,7 +15,8 @@ const conversioni = {
     "m-km": (m) => m / 1000,
     "C-F": (c) => ((c * 9) / 5) + 32,
     "F-C": (f) => (f - 32) * 5 / 9,
-    "ore-min": (h) => h * 60
+    "ore-min": (h) => h * 60,
+    "gio": (g) => g * 24
 }
 
 function choose(map, key) {
@@ -39,7 +40,8 @@ function performConversion() {
     }
 }
 
-valoreBox.addEventListener("input", performConversion())
+valoreBox.addEventListener("input", performConversion)
+convMenu.addEventListener("change", performConversion)
 convBtn.addEventListener("click", performConversion)
 
 
