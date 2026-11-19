@@ -47,4 +47,5 @@ const tasti = {
     PageDown: cambiaDi(-10),
     Escape: azzera
 }
+
 document.addEventListener("keydown", gestoreTasti(tasti))
